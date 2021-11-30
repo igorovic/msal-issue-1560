@@ -29,14 +29,20 @@ msalInstance.addEventCallback((event) => {
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+const App2 = appWithTranslation(MyApp);
+
+function MsalApp(props: AppProps) {
   const router = useRouter();
   const navigationClient = new CustomNavigationClient(router);
   msalInstance.setNavigationClient(navigationClient);
   return (
     <MsalProvider instance={msalInstance}>
-      <Component {...pageProps} />
+      <App2 {...props} />
     </MsalProvider>
   );
 }
 
-export default appWithTranslation(MyApp);
+export default MsalApp;
